@@ -40,7 +40,9 @@ public class MarchMadnessGUI extends Application {
     private Button finalizeButton;
 
 
-    //Edit 4/1/2022 by Kevin Pinto - adding new buttons to give the user additional options after clicking Simulate
+    /*
+    Edit 4/1/2022 by Kevin Pinto - adding new buttons to give the user additional options after clicking Simulate
+    */
     private Button exitGameButton;
     private Button logoutButton;
     private Button newBracketButton;
@@ -117,8 +119,9 @@ public class MarchMadnessGUI extends Application {
 
     /**
      * simulates the tournament
-     * simulation happens only once and
-     * after the simulation no more users can login
+     * simulation happens only once
+     *
+     * Edit by Kevin Pinto to add logout button availability
      */
     private void simulate() {
         //cant login and restart prog after simulate
@@ -127,6 +130,7 @@ public class MarchMadnessGUI extends Application {
 
         scoreBoardButton.setDisable(false);
         viewBracketButton.setDisable(false);
+        logoutButton.setDisable(false);
 
         teamInfo.simulate(simResultBracket);
         for (Bracket b : playerBrackets) {
@@ -201,6 +205,23 @@ public class MarchMadnessGUI extends Application {
             bracketPane = new BracketPane(selectedBracket);
             displayPane(bracketPane);
         }
+    }
+
+    /**
+     * Allows the user to return to the login screen.
+     * @author Kevin Pinto
+     */
+    private void logout() {
+
+            login.setDisable(true);
+            simulate.setDisable(true);
+            scoreBoardButton.setDisable(true);
+            viewBracketButton.setDisable(true);
+            newBracketButton.setDisable(true);
+            btoolBar.setDisable(true);
+            displayPane(loginP);
+            logoutButton.setDisable(true);
+
     }
 
     private void finalizeBracket() {
@@ -282,6 +303,7 @@ public class MarchMadnessGUI extends Application {
      */
     private void setActions() {
         login.setOnAction(e -> login());
+        logoutButton.setOnAction(e -> logout());
         simulate.setOnAction(e -> simulate());
         scoreBoardButton.setOnAction(e -> scoreBoard());
         viewBracketButton.setOnAction(e -> viewBracket());
