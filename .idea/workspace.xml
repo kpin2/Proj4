@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="" />
+    <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="Added logout button logic and associated method" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
