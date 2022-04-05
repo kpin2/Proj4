@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="fixes exit button availability">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MarchMadness/target/classes/k/marchmadness/MarchMadnessGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/target/classes/k/marchmadness/MarchMadnessGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/MarchMadnessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/MarchMadnessGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/ScoreBoardTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/ScoreBoardTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="94973c9a8ecb4652def13defd7b9de4ff0a0be1e" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,7 +44,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="openjdk-17" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/MarchMadness/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -51,6 +53,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\wante\OneDrive - massbay.edu\Spring '22 semester\CS225 Software Design\Projects\MarchMadness\MarchMadness\src\main\java\k\marchmadness" />
       <recent name="C:\Users\wante\OneDrive - massbay.edu\Spring '22 semester\CS225 Software Design\Projects\MarchMadness\src\main\java\k\marchmadness" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -91,7 +94,7 @@
       <workItem from="1648828204699" duration="4737000" />
       <workItem from="1648909782786" duration="4803000" />
       <workItem from="1648996203400" duration="6093000" />
-      <workItem from="1649175437392" duration="11737000" />
+      <workItem from="1649175437392" duration="13409000" />
     </task>
     <task id="LOCAL-00001" summary="created git accidentally via intelliJ with recent changes">
       <created>1648935138576</created>
@@ -121,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649184916085</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fixes exit button availability">
+      <created>1649188612339</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1649188612339</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

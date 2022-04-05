@@ -140,6 +140,20 @@ public class MarchMadnessGUI extends Application {
             scoreBoard.addPlayer(b, b.scoreBracket(simResultBracket));
         }
 
+
+       scoreBoardButton.setDisable(false);
+       viewBracketButton.setDisable(false);
+
+       teamInfo.simulate(simResultBracket);
+       for(Bracket b:playerBrackets){
+           scoreBoard.addPlayer(b,b.scoreBracket(simResultBracket));
+
+           //Alland Timas --> returns score associated to user upon pressing submit button
+           if(b.getBracket() == selectedBracket.getBracket()){
+            infoAlert("Your score is: " + scoreBoard.getPlayerScore(selectedBracket));
+           }
+       }
+
         displayPane(table);
     }
 

@@ -84,6 +84,7 @@ public class ScoreBoardTable {
         //table.getSelectionModel().setCellSelectionEnabled(true
         table.sort();
         table.getColumns().setAll(userNameCol, totalPtsCol);
+
         
     }
 
@@ -115,4 +116,11 @@ public class ScoreBoardTable {
         scores = new HashMap<Bracket, Integer>();
         data = FXCollections.observableArrayList();
     }
+
+    //Alland Timas, method returns Integer associated to key "b"
+    public String getPlayerScore(Bracket b){
+
+        return String.valueOf(scores.get(b));
+    }
+
 }
