@@ -122,7 +122,7 @@ public class MarchMadnessGUI extends Application {
      * simulates the tournament
      * simulation happens only once
      * <p>
-     * Edit by Kevin Pinto to add logout button availability
+     * Edit by Kevin Pinto to add logout, exit, new bracket button availability
      */
     private void simulate() {
         //cant login and restart prog after simulate
@@ -133,6 +133,7 @@ public class MarchMadnessGUI extends Application {
         viewBracketButton.setDisable(false);
         logoutButton.setDisable(false);
         newBracketButton.setDisable(false);
+        exitGameButton.setDisable(false);
 
         teamInfo.simulate(simResultBracket);
         for (Bracket b : playerBrackets) {
@@ -282,13 +283,22 @@ public class MarchMadnessGUI extends Application {
     }
 
 
+
+//    EDIT: by Kevin Pinto change which buttons are disabled
     private void finalizeBracket() {
         if (bracketPane.isComplete()) {
-            btoolBar.setDisable(true);
+//            btoolBar.setDisable(true);
+            clearButton.setDisable(true);
+            resetButton.setDisable(true);
+            finalizeButton.setDisable(true);
+            back.setDisable(true);
+
             bracketPane.setDisable(true);
 
             simulate.setDisable(false);
             login.setDisable(false);
+            exitGameButton.setDisable(false);
+
             //save the bracket along with account info
             seralizeBracket(selectedBracket);
 
