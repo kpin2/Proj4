@@ -39,6 +39,7 @@ public class MarchMadnessGUI extends Application {
     private Button resetButton;
     private Button randomizeButton;
     private Button finalizeButton;
+    private Button infoButton;
     
     //allows you to navigate back to division selection screen
     private Button back;
@@ -249,6 +250,7 @@ public class MarchMadnessGUI extends Application {
         resetButton=new Button("Reset");
         randomizeButton= new Button("Randomize");
         finalizeButton=new Button("Finalize");
+        infoButton = new Button("info");
         toolBar.getItems().addAll(
                 createSpacer(),
                 login,
@@ -263,6 +265,7 @@ public class MarchMadnessGUI extends Application {
                 resetButton,
                 randomizeButton,
                 finalizeButton,
+                infoButton,
                 back=new Button("Choose Division"),
                 createSpacer()
         );
@@ -280,10 +283,19 @@ public class MarchMadnessGUI extends Application {
         resetButton.setOnAction(e->reset());
         randomizeButton.setOnAction(e->randomizePicks());
         finalizeButton.setOnAction(e->finalizeBracket());
+        infoButton.setOnAction(e->showInfo());
         back.setOnAction(e->{
             bracketPane=new BracketPane(selectedBracket);
             displayPane(bracketPane);
         });
+    }
+
+    private void showInfo() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("hetnahusnetaohtnu");
+			alert.setHeaderText("aoeuaoeu");
+			alert.setContentText("aoeuaoeuaoeuo");
+            alert.show();
     }
     
     private void randomizePicks() {
