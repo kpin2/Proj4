@@ -1,5 +1,3 @@
-package k.marchmadness;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -8,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +49,7 @@ public class ScoreBoardTable {
                 return new SimpleStringProperty(b.getValue().getPlayerName());
             }
         });
-        userNameCol.setSortable(false);
+        userNameCol.setSortable(true);
         //userNameCol.setSortType(TableColumn.SortType.DESCENDING); //sorts column from highest to lowest
 
         /**
@@ -80,11 +77,8 @@ public class ScoreBoardTable {
         
         table.setItems(data);
         table.setEditable(false);
-        
-        //table.getSelectionModel().setCellSelectionEnabled(true
-        table.sort();
         table.getColumns().setAll(userNameCol, totalPtsCol);
-        
+        table.getSortOrder().addAll(totalPtsCol, userNameCol);
     }
 
     public TableView<Bracket> start() {
@@ -103,6 +97,7 @@ public class ScoreBoardTable {
             if (scores.get(name) != null || scores.size() < MAX_PLAYER_NUMBER) {
                 scores.put(name, score);
                 data.add(name);
+                table.sort();
                 //System.out.println("added: " + name.getPlayerName() + " " + score);
             }
         } catch (Exception e) {
@@ -114,5 +109,10 @@ public class ScoreBoardTable {
     public void clearPlayers() {
         scores = new HashMap<Bracket, Integer>();
         data = FXCollections.observableArrayList();
+    }
+    //Alland Timas, method returns Integer associated to key "b"
+    public String getPlayerScore(Bracket b){
+        
+        return String.valueOf(scores.get(b));
     }
 }
