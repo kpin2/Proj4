@@ -323,6 +323,7 @@ public class MarchMadnessGUI extends Application {
             //go back to bracket section selection screen
             // bracketPane=new BracketPane(selectedBracket);
             displayPane(bracketPane);
+            bracketPane.checkEmptyNodes();
 
         }
         //bracketPane=new BracketPane(selectedBracket);
