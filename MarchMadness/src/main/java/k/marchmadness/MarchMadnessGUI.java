@@ -37,6 +37,7 @@ public class MarchMadnessGUI extends Application {
     private Button viewBracketButton;
     private Button clearButton;
     private Button resetButton;
+    private Button randomizeButton;
     private Button finalizeButton;
     
     //allows you to navigate back to division selection screen
@@ -246,6 +247,7 @@ public class MarchMadnessGUI extends Application {
         viewBracketButton= new Button("View Simulated Bracket");
         clearButton=new Button("Clear");
         resetButton=new Button("Reset");
+        randomizeButton= new Button("Randomize");
         finalizeButton=new Button("Finalize");
         toolBar.getItems().addAll(
                 createSpacer(),
@@ -259,6 +261,7 @@ public class MarchMadnessGUI extends Application {
                 createSpacer(),
                 clearButton,
                 resetButton,
+                randomizeButton,
                 finalizeButton,
                 back=new Button("Choose Division"),
                 createSpacer()
@@ -275,6 +278,7 @@ public class MarchMadnessGUI extends Application {
         viewBracketButton.setOnAction(e->viewBracket());
         clearButton.setOnAction(e->clear());
         resetButton.setOnAction(e->reset());
+        randomizeButton.setOnAction(e->randomizePicks());
         finalizeButton.setOnAction(e->finalizeBracket());
         back.setOnAction(e->{
             bracketPane=new BracketPane(selectedBracket);
@@ -282,6 +286,10 @@ public class MarchMadnessGUI extends Application {
         });
     }
     
+    private void randomizePicks() {
+        bracketPane.randomize();
+    }
+
     /**
      * Creates a spacer for centering buttons in a ToolBar
      */

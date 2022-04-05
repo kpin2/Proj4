@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by Richard and Ricardo on 5/3/17.
@@ -98,6 +99,7 @@ public class BracketPane extends BorderPane {
                 //conditional added by matt 5/7 to differentiate between left and right mouse click
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                         BracketNode n = (BracketNode) mouseEvent.getSource();
+                        //System.out.println(mouseEvent.getSource());
                         int treeNum = bracketMap.get(n);
                         int nextTreeNum = (treeNum - 1) / 2;
                         if (!nodeMap.get(nextTreeNum).getName().equals(n.getName())) {
@@ -360,15 +362,50 @@ public class BracketPane extends BorderPane {
                 return finalPane;
         }
 
-        
+        public void randomize() {
+                Random random = new Random();
+                int placement = 15;
+                boolean isEvenDiv = true;
+                for (int i = nodes.size()-1 ; i > -1; i--) {
+                        // if (i > 30)
+                        // nodes.get(i).setStyle("-fx-background-color: green");
+                        // if (i < 15)
+                        // nodes.get(i).setStyle("-fx-background-color: blue");
+                        //if (i % 2 == 0)
+                        //nodes.get(i).setStyle("-fx-background-color: black");
+                        //nodes.get(i).setName(i + " " +nodes.get(i).getName());
+
+                        if((isEvenDiv)? i % 2 == 0 : i % 2 != 0) {
+                                if(random.nextBoolean()){
+                                        nodes.get(i-placement).setName(nodes.get(i).getName());
+                                }else{
+                                        nodes.get(i-placement+1).setName(nodes.get(i+3).getName());
+                                }
+                                placement--;
+                        }
+
+                        if(i+1 % 31 == 0) {
+                                placement = 15;
+                                isEvenDiv = !isEvenDiv;
+                        }
+                        
+
+                        
+                }
+        }
+
+        /**
+         * make an outer method in the bracketpane to fake click all of the nodes (some of them), then call that method after
+         * all the nodes have been intialized. Alternatively you can check to see if if the nodes finished initiolazing an the end of the bracket
+         * in contsructor you can simply fake the clicks there. Make sure that this note is somewhere you can find it bookmark3.
+         * When finilize is clicked to fake the clicks.
+         * */ 
 
         /**
          * Creates the graphical representation of a subtree.
          * Note, this is a vague model. TODO: MAKE MODULAR
          */
         private class Root extends Pane {
-
-                
 
                 private int location;
                 //bookmark2
@@ -379,15 +416,15 @@ public class BracketPane extends BorderPane {
                         createVertices(220, 60, 100, 100, 2, 200);
                         createVertices(120, 35, 100, 50, 4, 100);
                         createVertices(20, 25, 100, 25, 8, 50);
+                       int i = 0;
                         for (BracketNode n : nodes) {
                                 n.setOnMouseClicked(clicked);
                                 n.setOnMouseEntered(enter);
                                 n.setOnMouseExited(exit);
+                                // n.setName(i +" "+ n.getName());
+                                // i++;
                         }
-                        for (int i = 0; i < nodes.size(); i += 2) {
-                                fakeClick(nodes.get(i));
-                        }
-
+        
                 }
 
                 /**
@@ -444,7 +481,7 @@ public class BracketPane extends BorderPane {
                 private String teamName;
                 private Rectangle rect;
                 private Label name;
-
+                //bookmark3
                 /**
                  * Creates a BracketNode with,
                  *
