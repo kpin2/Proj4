@@ -139,6 +139,25 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
         bracket.add(position, s);
     }
 
+    /**
+     * Christian:
+     * set the team for a bracket
+     * @param position, index to add new value
+     * @param s, string added to bracket
+     */
+    public void setTeam(int position, String s) {
+        bracket.set(position, s);
+    }
+
+    /**
+     * Christian:
+     * get the team for a bracket
+     * @param position, index to add new value
+     */
+    public String getTeam(int position) {
+        return bracket.get(position);
+    }
+
     /** 
      * Hillary Ssemakula:
      * set player's password to string parameter 
@@ -177,6 +196,7 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
         */
     public boolean isComplete()
     {
+        //bookmark 5
         for(String team: bracket){
             if(team.equals("")){ return false; }
         }
@@ -261,5 +281,17 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
     public int getTeamScore(int index){
         return teamScores[index];
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        int i = 0;
+        for(String s : bracket) {
+            str += i++ + ": " + s + "\n";
+        }
+        return str;
+    }
+
+    
 }
 

@@ -97,11 +97,16 @@ public class BracketPane extends BorderPane {
          */
         private EventHandler<MouseEvent> clicked = mouseEvent -> {
                 //conditional added by matt 5/7 to differentiate between left and right mouse click
+                //bookmark 4
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                         BracketNode n = (BracketNode) mouseEvent.getSource();
-                        //System.out.println(mouseEvent.getSource());
+                
+                        
                         int treeNum = bracketMap.get(n);
                         int nextTreeNum = (treeNum - 1) / 2;
+
+                        // System.out.println(treeNum);
+                        // System.out.println(nodeMap.get(n));
                         if (!nodeMap.get(nextTreeNum).getName().equals(n.getName())) {
                                 currentBracket.removeAbove((nextTreeNum));
                                 clearAbove(treeNum);
@@ -362,11 +367,16 @@ public class BracketPane extends BorderPane {
                 return finalPane;
         }
 
+        /**
+         * Christian:
+         * randomized the team selection
+         */
         public void randomize() {
                 Random random = new Random();
                 int placement = 15;
                 boolean isEvenDiv = true;
-                for (int i = nodes.size()-1 ; i > -1; i--) {
+                //System.out.println(nodes.size());
+                for (int i = nodes.size() - 1 ; i > -1; i--) {
                         // if (i > 30)
                         // nodes.get(i).setStyle("-fx-background-color: green");
                         // if (i < 15)
@@ -374,24 +384,53 @@ public class BracketPane extends BorderPane {
                         //if (i % 2 == 0)
                         //nodes.get(i).setStyle("-fx-background-color: black");
                         //nodes.get(i).setName(i + " " +nodes.get(i).getName());
-
+                        if( (i+1) % 31 == 0 && i != nodes.size() -1) {
+                                placement = 15;
+                               // // nodes.get(i).setStyle("-fx-background-color: blue");
+                                isEvenDiv = !isEvenDiv;
+                       }
+                       currentBracket.setTeam(i+3,nodes.get(i).getName());
                         if((isEvenDiv)? i % 2 == 0 : i % 2 != 0) {
                                 if(random.nextBoolean()){
                                         nodes.get(i-placement).setName(nodes.get(i).getName());
+                                        currentBracket.setTeam(i+3-placement,nodes.get(i).getName());
                                 }else{
-                                        nodes.get(i-placement+1).setName(nodes.get(i+3).getName());
+                                        nodes.get(i-placement).setName(nodes.get(i+1).getName());
+                                        currentBracket.setTeam(i+3-placement,nodes.get(i).getName());
                                 }
                                 placement--;
                         }
-
-                        if(i+1 % 31 == 0) {
-                                placement = 15;
-                                isEvenDiv = !isEvenDiv;
-                        }
-                        
-
-                        
                 }
+                //left side determine final 2
+                /**
+                 * nodeFinal0.setName(currentBracket.getBracket().get(0));
+                nodeFinal1.setName(currentBracket.getBracket().get(1));
+                nodeFinal2.setName(currentBracket.getBracket().get(2));
+                 */
+                if(random.nextBoolean()) {
+                        currentBracket.setTeam(1, nodeMap.get(3).getName());
+                        nodeMap.get(1).setName(nodeMap.get(3).getName());
+                } else {
+                        currentBracket.setTeam(1, nodeMap.get(4).getName());
+                        nodeMap.get(1).setName(nodeMap.get(4).getName());
+                }
+                //right side determine final 2
+                if(random.nextBoolean()) {
+                        currentBracket.setTeam(2, nodeMap.get(5).getName());
+                        nodeMap.get(2).setName(nodeMap.get(5).getName());
+                } else {
+                        currentBracket.setTeam(2, nodeMap.get(6).getName());
+                        nodeMap.get(2).setName(nodeMap.get(6).getName());
+                }
+                //winner
+                if(random.nextBoolean()) {
+                        currentBracket.setTeam(0, currentBracket.getTeam(1));
+                        nodeMap.get(0).setName(currentBracket.getTeam(1));
+                } else {
+                        currentBracket.setTeam(0, currentBracket.getTeam(2));
+                        nodeMap.get(0).setName(currentBracket.getTeam(2));
+                }
+                //System.out.println(currentBracket.toString());
         }
 
         /**

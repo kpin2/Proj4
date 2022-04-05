@@ -55,7 +55,7 @@ public class TournamentInfo{//renamed from teamInfo by matt 5/4
             br.close();
 
         }
-        //Gives me the current dir
+        // //Gives me the current dir
         // catch(FileNotFoundException e) {
         //     System.out.print(System.getProperty("user.dir"));
         // }
