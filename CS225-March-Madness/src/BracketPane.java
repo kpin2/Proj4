@@ -299,6 +299,37 @@ public class BracketPane extends BorderPane {
         }
 
         /**
+         * @author Alland Timas
+         * iterates through nodes and checks if teamname is empty. If empty, sets fill to a translucent red. Once previously empty node is filled, returns node to 
+         * previous transparent state
+         */
+        public void checkEmptyNodes(){
+                for (BracketNode n : nodes) {
+                        if(n.teamName.isEmpty()){
+                             n.rect.setFill(Color.RED);  
+                             n.rect.setOpacity(0.2); 
+                        }
+                        else{
+                            n.rect.setFill(Color.TRANSPARENT);    
+                        }
+                }
+        }
+        
+        //Alland Timas working on getting a comparison of user's bracket to simulated bracket
+        // public void compareBrackets(BracketPane b, BracketPane c){
+        //         for (int index = 0; index < c.bracketMap.size(); index++) {
+        //                 if(c.nodeMap.get(index).teamName == b.nodeMap.get(index).teamName){
+        //                         c.nodeMap.get(index).rect.setFill(Color.GREEN);
+        //                         c.nodeMap.get(index).rect.setOpacity(0.2);
+        //                 }
+        //                 else{
+        //                         c.nodeMap.get(index).rect.setFill(Color.RED);
+        //                         c.nodeMap.get(index).rect.setOpacity(0.2);  
+        //                 }
+        //         }
+        // }
+
+        /**
          * Returns a custom "Button" with specified
          *
          * @param name The name of the button
@@ -464,5 +495,6 @@ public class BracketPane extends BorderPane {
                         this.teamName = teamName;
                         name.setText(teamName);
                 }
+                
         }
 }

@@ -141,7 +141,8 @@ public class MarchMadnessGUI extends Application {
        teamInfo.simulate(simResultBracket);
        for(Bracket b:playerBrackets){
            scoreBoard.addPlayer(b,b.scoreBracket(simResultBracket));
-           //Alland Timas, returns score associated to user upon pressing submit button
+
+           //Alland Timas --> returns score associated to user upon pressing submit button
            if(b.getBracket() == selectedBracket.getBracket()){
             infoAlert("Your score is: " + scoreBoard.getPlayerScore(selectedBracket));
            }
@@ -232,9 +233,11 @@ public class MarchMadnessGUI extends Application {
        }else{
             infoAlert("You can only finalize a bracket once it has been completed.");
             //go back to bracket section selection screen
-            // bracketPane=new BracketPane(selectedBracket);
+            // bracketPane=new BracketPane(selectedBracket);   
+
             displayPane(bracketPane);
-        
+            //Alland timas --> added call to bracketPane's check empty nodes method
+            bracketPane.checkEmptyNodes();
        }
        //bracketPane=new BracketPane(selectedBracket);
       
