@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="implementing logout, exit game, and new bracket(in progress)">
+    <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="fixes exit button availability">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/MarchMadnessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/MarchMadnessGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MarchMadness/target/classes/k/marchmadness/MarchMadnessGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/target/classes/k/marchmadness/MarchMadnessGUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +91,7 @@
       <workItem from="1648828204699" duration="4737000" />
       <workItem from="1648909782786" duration="4803000" />
       <workItem from="1648996203400" duration="6093000" />
-      <workItem from="1649175437392" duration="8044000" />
+      <workItem from="1649175437392" duration="11737000" />
     </task>
     <task id="LOCAL-00001" summary="created git accidentally via intelliJ with recent changes">
       <created>1648935138576</created>
@@ -115,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649184291418</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixes exit button availability">
+      <created>1649184916085</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1649184916085</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +148,7 @@
     <MESSAGE value="created git accidentally via intelliJ with recent changes" />
     <MESSAGE value="Added logout button logic and associated method" />
     <MESSAGE value="implementing logout, exit game, and new bracket(in progress)" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementing logout, exit game, and new bracket(in progress)" />
+    <MESSAGE value="fixes exit button availability" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes exit button availability" />
   </component>
 </project>
