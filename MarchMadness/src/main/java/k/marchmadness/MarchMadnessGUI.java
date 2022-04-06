@@ -58,6 +58,7 @@ public class MarchMadnessGUI extends Application {
     private Button finalizeButton;
     private Button infoButton;
     private Tooltip tooltip;
+    //christian
     private Button randomizeButton;
     
     
@@ -274,10 +275,15 @@ public class MarchMadnessGUI extends Application {
             selectedBracket = new Bracket(newBracket);
             bracketPane = new BracketPane(selectedBracket);
 
-
-            toolBar.setDisable(true);
+            clearButton.setDisable(false);
+            resetButton.setDisable(false);
+            finalizeButton.setDisable(false);
+            back.setDisable(false);
+            randomizeButton.setDisable(false);
+            
+            toolBar.setDisable(false);
             btoolBar.setDisable(false);
-//            seralizeBracket(selectedBracket);
+            //seralizeBracket(selectedBracket);
 
             selectedBracket=new Bracket(startingBracket);
             bracketPane=new BracketPane(selectedBracket);
@@ -325,6 +331,9 @@ public class MarchMadnessGUI extends Application {
             resetButton.setDisable(true);
             finalizeButton.setDisable(true);
             back.setDisable(true);
+
+            //Christian
+            randomizeButton.setDisable(true);
 
             bracketPane.setDisable(true);
 
@@ -375,6 +384,7 @@ public class MarchMadnessGUI extends Application {
         scoreBoardButton=new Button("ScoreBoard");
         viewBracketButton= new Button("View Simulated Bracket");
         clearButton=new Button("Clear");
+        //Christian
         randomizeButton = new Button("Random Select");
         //Yuliia: Tooltip added for clear bracket button button
         tooltip = new Tooltip("Clear Bracket");
@@ -425,6 +435,7 @@ public class MarchMadnessGUI extends Application {
                 createSpacer(),
                 clearButton,
                 resetButton,
+                //Christian
                 randomizeButton,
                 finalizeButton,
                 exitGameButton,
@@ -437,6 +448,7 @@ public class MarchMadnessGUI extends Application {
     
     /**
      * Christian:
+     * Randomizes the bracket from within bracketpane
      */
     private void randomizePicks() {
         bracketPane.randomize();

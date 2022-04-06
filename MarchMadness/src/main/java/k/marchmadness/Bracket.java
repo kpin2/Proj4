@@ -227,6 +227,7 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
      */
     public int scoreBracket(Bracket master){
         int score = 0;
+        
         if (bracket.get(0).equals(master.getBracket().get(0)))//finals
             score+=32;
         for (int i = 1; i < 3; i++) {
@@ -279,5 +280,18 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
     public int getTeamScore(int index){
         return teamScores[index];
     }
+
+
+    @Override
+    public String toString() {
+        String str = "";
+        int i = 0;
+        for(String s : bracket) {
+            str += i++ + ": " + s + "\n";
+        }
+        return str;
+    }
+
+
 }
 
