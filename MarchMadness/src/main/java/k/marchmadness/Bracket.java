@@ -127,6 +127,25 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
             bracket.set(child, "");
         }
     }
+    
+     /**
+     * Christian:
+     * set the team for a bracket
+     * @param position, index to add new value
+     * @param s, string added to bracket
+     */
+    public void setTeam(int position, String s) {
+        bracket.set(position, s);
+    }
+
+    /**
+     * Christian:
+     * get the team for a bracket
+     * @param position, index to add new value
+     */
+    public String getTeam(int position) {
+        return bracket.get(position);
+    }
 
     /**
      * add a value to the bracket arrayList
