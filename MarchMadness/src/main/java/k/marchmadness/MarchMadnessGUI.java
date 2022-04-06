@@ -337,6 +337,9 @@ public class MarchMadnessGUI extends Application {
     }
 
 
+    /**
+     * Finalize bracket once it is completely filled out
+     */
     //    EDIT: by Kevin Pinto change which buttons are disabled
     private void finalizeBracket() {
         if (bracketPane.isComplete()) {
@@ -610,7 +613,7 @@ public class MarchMadnessGUI extends Application {
      * Displays a error message to the user
      * and if the error is bad enough closes the program
      *
-     * @param msg   message to be displayed to the user
+     * @param e   message to be displayed to the user
      * @param fatal true if the program should exit. false otherwise
      */
     private void showError(Exception e, boolean fatal) {
@@ -705,7 +708,7 @@ public class MarchMadnessGUI extends Application {
      * Tayon Watson 5/5
      * deseralizedBracket
      *
-     * @param filename of the seralized bracket file
+     * fileName of the seralized bracket file
      * @return deserialized bracket
      */
     private ArrayList<Bracket> loadBrackets() {
