@@ -1,5 +1,3 @@
-//package marchmadness;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -58,6 +56,22 @@ public class MarchMadnessGUI extends Application {
     private Button finalizeButton;
     private Tooltip tooltip;
     
+
+
+    /**
+     * Edit 4/1/2022 by Kevin Pinto - adding new buttons to give the user additional options after clicking Simulate
+     */
+    private Button exitGameButton;
+    private Button logoutButton;
+    private Button newBracketButton;
+
+    //EDIT: by Kevin Pinto New bracket when user clicks the button
+    private Bracket newBracket;
+
+
+
+   
+
     //allows you to navigate back to division selection screen
     private Button back;
   
@@ -140,6 +154,36 @@ public class MarchMadnessGUI extends Application {
         tooltip = new Tooltip("Click to Simulate");
         simulate.setTooltip(tooltip);
         
+
+        //Yuliia: Tooltip added for sign button button
+        tooltip = new Tooltip("Click to Login");
+        login.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for simulate button button
+        tooltip = new Tooltip("Click to Simulate");
+        simulate.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for score board button button
+        tooltip = new Tooltip("Move to Score Board");
+        scoreBoardButton.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for view bracket button button
+        tooltip = new Tooltip("Click to See Bracket");
+        viewBracketButton.setTooltip(tooltip);
+
+
+        scoreBoardButton.setDisable(false);
+        viewBracketButton.setDisable(false);
+        logoutButton.setDisable(false);
+        newBracketButton.setDisable(false);
+        exitGameButton.setDisable(false);
+
+        teamInfo.simulate(simResultBracket);
+        for (Bracket b : playerBrackets) {
+            scoreBoard.addPlayer(b, b.scoreBracket(simResultBracket));
+        }
+
+
        scoreBoardButton.setDisable(false);
        //Yuliia: Tooltip added for score board button button
        tooltip = new Tooltip("Move to Score Board");
@@ -282,11 +326,39 @@ public class MarchMadnessGUI extends Application {
         tooltip = new Tooltip("Reset All Brackets");
         resetButton.setTooltip(tooltip);
         finalizeButton=new Button("Finalize");
+        simulate = new Button("Simulate");
+        scoreBoardButton = new Button("ScoreBoard");
+        viewBracketButton = new Button("View Simulated Bracket");
+        clearButton = new Button("Clear");
+        resetButton = new Button("Reset");
+        finalizeButton = new Button("Finalize");
+
+        //EDIT: added by Kevin Pinto
+        newBracketButton = new Button("New Bracket");
+        exitGameButton = new Button("Exit Game");
+        logoutButton = new Button("Logout");
+
+
+        //Yuliia: Tooltip added for simulate button button
+        tooltip = new Tooltip("Start Simulation");
+        simulate.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for clear bracket button button
+        tooltip = new Tooltip("Clear Bracket");
+        clearButton.setTooltip(tooltip);
+
+        //Yuliaa: Tooltip added for reset  button
+        tooltip = new Tooltip("Reset All Brackets");
+        resetButton.setTooltip(tooltip);
+
         //Yuliia: Tooltip added for finalize  button
         tooltip = new Tooltip("Finalise the Bracket");
         finalizeButton.setTooltip(tooltip);
         tooltip = new Tooltip("Actions");
         toolBar.setTooltip(tooltip);
+
+
+
         toolBar.getItems().addAll(
                 createSpacer(),
                 login,
@@ -297,6 +369,8 @@ public class MarchMadnessGUI extends Application {
         );
         tooltip = new Tooltip("Reset Buttons");
         btoolBar.setTooltip(tooltip);
+
+
         btoolBar.getItems().addAll(
                 createSpacer(),
                 clearButton,
@@ -361,10 +435,13 @@ public class MarchMadnessGUI extends Application {
 
         TextField enterUser = new TextField();
         loginPane.add(enterUser, 1, 1);
+
+
         //Yuliia: Tooltip added for user name text field
         tooltip = new Tooltip("Enter username here");
         enterUser.setTooltip(tooltip);
-        
+
+
         Label password = new Label("Password: ");
         loginPane.add(password, 0, 2);
 
@@ -374,9 +451,18 @@ public class MarchMadnessGUI extends Application {
         tooltip = new Tooltip("Enter password here");
         passwordField.setTooltip(tooltip);
 
+
+        //Yuliia: Tooltip added for password text field
+        tooltip = new Tooltip("Enter password here");
+        passwordField.setTooltip(tooltip);
+
+
         Button signButton = new Button("Sign in");
+
         tooltip = new Tooltip("Click to Login");
         signButton.setTooltip(tooltip);
+
+
         loginPane.add(signButton, 1, 4);
         signButton.setDefaultButton(true);//added by matt 5/7, lets you use sign in button by pressing enter
 
@@ -412,10 +498,10 @@ public class MarchMadnessGUI extends Application {
                 //Yuliia: check for empty username and password
                 if(!name.equals("") && !playerPass.equals("")){
                     /**
-                        Yuliia: Special characters are not allowed in user name
-                        Yuliia: But they are allowed in passwords
-                        Yuliia: Password length must be 8 characters at least
-                    */
+                     Yuliia: Special characters are not allowed in user name
+                     Yuliia: But they are allowed in passwords
+                     Yuliia: Password length must be 8 characters at least
+                     */
                     boolean special = false;
                     for (int a = 0; a < name.length(); a++) {
                         if(Character.isDigit(name.charAt(a)) || Character.isAlphabetic(name.charAt(a))){
