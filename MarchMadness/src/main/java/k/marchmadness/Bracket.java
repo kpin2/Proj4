@@ -8,10 +8,31 @@ import java.util.ArrayList;
  * Created by Matt and Dan on 5/1/2017.
  * Contributor: Hillary Ssemakula 5/1
  */
+/**
+ * Documentation
+ * Christian:
+ * This class is responsible for the creation/storage of all bracket teams for a single roster.
+ * Inorder to access or modify existing teams within a guess can be done here. Checking if the roster
+ * is complete and scoring is also all done within this class.
+ * 
+ */
 public class Bracket implements Serializable //Hillary: This bracket class is to implement the 
 // serializable interface inorder to be serialized
 {
     //Attributes
+    /**
+     * Christian:
+     * bracket containes all the team names sorted from 0-127.
+     * 0 Winner
+     * 1 EAST vs. WEST Winner
+     * 2 MIDWEST vs. SOUTH Divison Winner
+     * and all subsequent indecies pertain to each divison spiraling outward
+     * ex:
+     *  static final int EAST_BRACKET = 3;
+        static final int WEST_BRACKET = 4;
+        static final int MIDWEST_BRACKET = 5;
+        static final int SOUTH_BRACKET = 6;
+     */
     private ArrayList<String> bracket;
     private transient int[] teamScores = new int[127];
     private String playerName;
