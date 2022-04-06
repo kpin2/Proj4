@@ -8,9 +8,41 @@ import java.util.ArrayList;
  * Created by Matt and Dan on 5/1/2017.
  * Contributor: Hillary Ssemakula 5/1
  */
+/**
+ * Documentation
+ * Christian:
+ * This class is responsible for the creation/storage of all bracket teams for a single roster.
+ * In order to access or modify existing teams within a guess can be done here. Checking if the roster
+ * is complete and scoring is also all done within this class.
+ * 
+ */
 public class Bracket implements Serializable //Hillary: This bracket class is to implement the serializable interface inorder to be serialized
 {
     //Attributes
+    /**
+     * Christian additional documentation:
+     * bracket contains all the team names sorted from 0-127.
+     * 0 Winner
+     * 1 EAST vs. WEST Winner
+     * 2 MIDWEST vs. SOUTH Division Winner
+     * and all subsequent indices pertain to each division spiraling outward
+     * ex:
+     *  static final int EAST_BRACKET = 3;
+        static final int WEST_BRACKET = 4;
+        static final int MIDWEST_BRACKET = 5;
+        static final int SOUTH_BRACKET = 6;
+
+        126 being the last entry in the last division
+     *
+     * in reality the four divisions are a zero indexed length of 123 just pushed over three indexes
+     * to make room for the final 2 (indices 1 E vs. W & 2 MW vs. S) and the eventual winner at index 0
+     * meaning the real list of 123 (starting at index 4) 
+     * can be divided into four parts each part being 31 indices long.
+     * If we were to think of the bracket as a pyramid, looping forward would take 
+     * you from the top and read each row to the bottom, starting from the first 
+     * division. Looping backwards would take you from the last division and read 
+     * your way up each row to the top of the tree (each tip of the tree evenly going divisible by 31).  
+     */
     private ArrayList<String> bracket;
     private transient int[] teamScores = new int[127];
     private String playerName;
@@ -23,7 +55,10 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
 
     //Constructor
     /**
-     *Cosntructor using an ArrayList of strings to start
+     * Cosntructor using an ArrayList of strings to start
+     * Christian additional Docs:
+     * this will create the list of teams that are needed by starting out with a full
+     * empty string array, as the player clicks, the array will be populated with teams
      * @param starting, and arraylist containing the 64 teams participating in the tournament
      */
     public Bracket(ArrayList<String> starting){
@@ -35,6 +70,9 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
 
     /**
      * Constructor using another Bracket to start
+     * Christian additional Docs:
+     * this will create the list of teams that are needed by starting out with a full
+     * empty string array, as the player clicks, the array will be populated with teams
      * @param starting, master bracket pre-simulation
      */
     public Bracket(Bracket starting){
@@ -49,6 +87,9 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
     /**
      * added by matt 5/2
      * Constructor that creates a new bracket with a users name
+     * Christian additional Docs:
+     * this will create the list of teams that are needed by starting out with a full
+     * empty string array, as the player clicks, the array will be populated with teams
      * @param starting, master bracket pre-simulation
      * @param user, name of the new bracket owner
      */
@@ -130,7 +171,7 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
     
      /**
      * Christian:
-     * set the team for a bracket
+     * set the team at a particular index for a bracket
      * @param position, index to add new value
      * @param s, string added to bracket
      */
@@ -140,7 +181,7 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
 
     /**
      * Christian:
-     * get the team for a bracket
+     * get the team at a particular index for a bracket
      * @param position, index to add new value
      */
     public String getTeam(int position) {
@@ -281,7 +322,10 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
         return teamScores[index];
     }
 
-
+    /**
+     * Christian:
+     * to string method that returns all the teams with their respective index
+     */
     @Override
     public String toString() {
         String str = "";

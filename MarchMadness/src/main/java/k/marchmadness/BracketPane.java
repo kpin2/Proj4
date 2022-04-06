@@ -47,6 +47,9 @@ public class BracketPane extends BorderPane {
         private HashMap<StackPane, Pane> panes;
         /**
          * Reference to the current bracket.
+         * Christian additional docs:
+         * This holds all the relevant data needed for all the teams populated from
+         *  the current bracket from the Bracket class
          */
         private Bracket currentBracket;
         /**
@@ -60,10 +63,24 @@ public class BracketPane extends BorderPane {
         /**
          * Important logical simplification for allowing for code that is easier
          * to maintain.
+         * 
          */
         private HashMap<BracketNode, Integer> bracketMap = new HashMap<>();
         /**
          * Reverse of the above;
+         * Christian additional docs: 
+         * Visually this map stores all the teams/nodes in a spiral
+         * ex: 
+         * 0 Winner
+         * 1 EAST vs. WEST Winner
+          * 2 MIDWEST vs. SOUTH Division Winner
+         * 3 EAST WINNER
+         * 4 WEST WINNER
+         * 5 MIDWEST WINNER
+         * 6 SOUTH WINNER
+         * 
+         * any changes to this bracket only effects the UI presentation of data & does not effect
+         * the actual bracket, that would be currentBracket
          */
         private HashMap<Integer, BracketNode> nodeMap = new HashMap<>();
 
@@ -317,20 +334,6 @@ public class BracketPane extends BorderPane {
                         }
                 }
         }
-        
-        //Alland Timas working on getting a comparison of user's bracket to simulated bracket
-        // public void compareBrackets(BracketPane b, BracketPane c){
-        //         for (int index = 0; index < c.bracketMap.size(); index++) {
-        //                 if(c.nodeMap.get(index).teamName == b.nodeMap.get(index).teamName){
-        //                         c.nodeMap.get(index).rect.setFill(Color.GREEN);
-        //                         c.nodeMap.get(index).rect.setOpacity(0.2);
-        //                 }
-        //                 else{
-        //                         c.nodeMap.get(index).rect.setFill(Color.RED);
-        //                         c.nodeMap.get(index).rect.setOpacity(0.2);  
-        //                 }
-        //         }
-        // }
 
         /**
          * Returns a custom "Button" with specified
@@ -390,41 +393,64 @@ public class BracketPane extends BorderPane {
          * randomized the team selection
          */
         public void randomize() {
+                /**
+                 * The idea here is that the bracket is full of indices from 0-123
+                 * this can be divided into 4 pieces which is 31.
+                 * so to check if we entered a new division we see if the index + 1, which is 
+                 * divisible by 31. Now knowing this knowledge this is how the randomizer works.
+                 * 
+                 * it will go backwards in the array and check to see if the number is even. This 
+                 * is important because we want to take the even number say 122 and take 123 (i+1)
+                 * and have it randomly choose between them (random.nextBoolean). 
+                 * 
+                 * to understand how its moving each index up in the tree, try this example:
+                 * i: 122 team 2
+                 * i: 133 team 1
+                 * 122 - 15 = the index above
+                 * i: 110 team 4
+                 * i: 111 team 3
+                 * 110 - 14 = the index above
+                 * 
+                 * lets call this number we are subtracting with and call it placement
+                 * 
+                 * the pattern continues up the tree. Therefore we check to see the even number i
+                 * in the tree, then take the placement away from i and you'll have your correct move up the tree.
+                 * 
+                 * once we get to a new division the odds and evens swap, so we now search for odd numbers and
+                 * repeat the same task, resetting placement back to 15.
+                 */
                 Random random = new Random();
                 int placement = 15;
                 boolean isEvenDiv = true;
-                //System.out.println(nodes.size());
+
+                //loops through all the nodes which contains 
+                //all the all the labels except for the final 3 in the center
                 for (int i = nodes.size() - 1 ; i > -1; i--) {
-                        // if (i > 30)
-                        // nodes.get(i).setStyle("-fx-background-color: green");
-                        // if (i < 15)
-                        // nodes.get(i).setStyle("-fx-background-color: blue");
-                        //if (i % 2 == 0)
-                        //nodes.get(i).setStyle("-fx-background-color: black");
-                        //nodes.get(i).setName(i + " " +nodes.get(i).getName());
+                        //checking for new division
                         if( (i+1) % 31 == 0 && i != nodes.size() -1) {
                                 placement = 15;
-                               // // nodes.get(i).setStyle("-fx-background-color: blue");
                                 isEvenDiv = !isEvenDiv;
                        }
+                       //set the current node (team) within the actual saved bracket
                        currentBracket.setTeam(i+3,nodes.get(i).getName());
+                       //check to see if we are checking for odd or even
                         if((isEvenDiv)? i % 2 == 0 : i % 2 != 0) {
                                 if(random.nextBoolean()){
+                                        //sets the visual label node
                                         nodes.get(i-placement).setName(nodes.get(i).getName());
+                                        //sets the saved team node in bracket
                                         currentBracket.setTeam(i+3-placement,nodes.get(i).getName());
                                 }else{
+                                        //sets the visual label node
                                         nodes.get(i-placement).setName(nodes.get(i+1).getName());
+                                        //sets the saved team node in bracket
                                         currentBracket.setTeam(i+3-placement,nodes.get(i).getName());
                                 }
                                 placement--;
                         }
                 }
-                //left side determine final 2
-                /**
-                 * nodeFinal0.setName(currentBracket.getBracket().get(0));
-                nodeFinal1.setName(currentBracket.getBracket().get(1));
-                nodeFinal2.setName(currentBracket.getBracket().get(2));
-                 */
+                //This sets the determines the final 2 & the winner
+                //1 EAST vs. WEST determine final 2 index 1
                 if(random.nextBoolean()) {
                         currentBracket.setTeam(1, nodeMap.get(3).getName());
                         nodeMap.get(1).setName(nodeMap.get(3).getName());
@@ -432,7 +458,7 @@ public class BracketPane extends BorderPane {
                         currentBracket.setTeam(1, nodeMap.get(4).getName());
                         nodeMap.get(1).setName(nodeMap.get(4).getName());
                 }
-                //right side determine final 2
+                // * 2 MIDWEST vs. SOUTH right side determine final 2 index 2
                 if(random.nextBoolean()) {
                         currentBracket.setTeam(2, nodeMap.get(5).getName());
                         nodeMap.get(2).setName(nodeMap.get(5).getName());
@@ -440,7 +466,7 @@ public class BracketPane extends BorderPane {
                         currentBracket.setTeam(2, nodeMap.get(6).getName());
                         nodeMap.get(2).setName(nodeMap.get(6).getName());
                 }
-                //winner
+                //winner index 0
                 if(random.nextBoolean()) {
                         currentBracket.setTeam(0, currentBracket.getTeam(1));
                         nodeMap.get(0).setName(currentBracket.getTeam(1));
@@ -448,17 +474,28 @@ public class BracketPane extends BorderPane {
                         currentBracket.setTeam(0, currentBracket.getTeam(2));
                         nodeMap.get(0).setName(currentBracket.getTeam(2));
                 }
-                //System.out.println(currentBracket.toString());
+                
         }
 
         /**
          * Creates the graphical representation of a subtree.
          * Note, this is a vague model. TODO: MAKE MODULAR
+
+         * 
          */
         private class Root extends Pane {
 
                 private int location;
 
+                /**
+                *
+                * Christian additional docs: 
+                * This will create the labels and their click function
+                * for all the button seen in the UI for picking the teams
+                * 
+                * it goes through nodes such that it starts from the tip of a tree
+                * then fans out to the bottom, then starts at the next tree. 
+                */
                 public Root(int location) {
                         this.location = location;
                         createVertices(420, 200, 100, 20, 0, 0);

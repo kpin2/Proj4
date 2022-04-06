@@ -275,12 +275,14 @@ public class MarchMadnessGUI extends Application {
             selectedBracket = new Bracket(newBracket);
             bracketPane = new BracketPane(selectedBracket);
 
+            //Christian:
+            //re-enabling button upon new bracket
             clearButton.setDisable(false);
             resetButton.setDisable(false);
             finalizeButton.setDisable(false);
             back.setDisable(false);
             randomizeButton.setDisable(false);
-            
+
             toolBar.setDisable(false);
             btoolBar.setDisable(false);
             //seralizeBracket(selectedBracket);
