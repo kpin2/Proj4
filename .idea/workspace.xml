@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="fixes exit button availability">
+    <list default="true" id="7a0ca2cc-3ae5-43a4-b868-7adf95c692ec" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/MarchMadnessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/MarchMadnessGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/ScoreBoardTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/src/main/java/k/marchmadness/ScoreBoardTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MarchMadness/target/classes/k/marchmadness/MarchMadnessGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/MarchMadness/target/classes/k/marchmadness/MarchMadnessGUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="kevin-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -95,6 +95,7 @@
       <workItem from="1648909782786" duration="4803000" />
       <workItem from="1648996203400" duration="6093000" />
       <workItem from="1649175437392" duration="13409000" />
+      <workItem from="1649196949406" duration="124000" />
     </task>
     <task id="LOCAL-00001" summary="created git accidentally via intelliJ with recent changes">
       <created>1648935138576</created>
@@ -131,6 +132,13 @@
       <option name="project" value="LOCAL" />
       <updated>1649188612339</updated>
     </task>
+    <task id="LOCAL-00006" summary="updating BracketPane.java">
+      <created>1649196006182</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1649196006182</updated>
+    </task>
     <option name="localTasksCounter" value="6" />
     <servers />
   </component>
@@ -159,6 +167,8 @@
     <MESSAGE value="Added logout button logic and associated method" />
     <MESSAGE value="implementing logout, exit game, and new bracket(in progress)" />
     <MESSAGE value="fixes exit button availability" />
+    <MESSAGE value="updating BracketPane.java" />
+    <MESSAGE value="merging Yuliias code" />
     <option name="LAST_COMMIT_MESSAGE" value="fixes exit button availability" />
   </component>
 </project>
