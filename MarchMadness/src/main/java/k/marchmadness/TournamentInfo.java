@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class TournamentInfo{//renamed from teamInfo by matt 5/4
     private HashMap<String, Team> teams;
-    private static final String path = "MarchMadness/src/main/resources/k/marchmadness/";
+    private static final String path = "./src/main/resources/k/marchmadness/";
 
     public TournamentInfo() throws IOException{
         teams = new HashMap<>();

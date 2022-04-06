@@ -254,14 +254,24 @@ public class MarchMadnessGUI extends Application {
      */
     private void logout() {
 
-        login.setDisable(true);
-        simulate.setDisable(true);
-        scoreBoardButton.setDisable(true);
-        viewBracketButton.setDisable(true);
-        newBracketButton.setDisable(true);
-        btoolBar.setDisable(true);
-        displayPane(loginP);
-        logoutButton.setDisable(true);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you wish to logout and return to the login screen?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Logout User?");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            login.setDisable(true);
+            simulate.setDisable(true);
+            scoreBoardButton.setDisable(true);
+            viewBracketButton.setDisable(true);
+            newBracketButton.setDisable(true);
+            btoolBar.setDisable(true);
+            displayPane(loginP);
+            logoutButton.setDisable(true);;
+        } else if (alert.getResult() == ButtonType.NO) {
+            alert.close();
+        }
+
+
 
     }
 
@@ -282,10 +292,13 @@ public class MarchMadnessGUI extends Application {
             finalizeButton.setDisable(false);
             back.setDisable(false);
             randomizeButton.setDisable(false);
+            scoreBoardButton.setDisable(true);
+            viewBracketButton.setDisable(true);
+
 
             toolBar.setDisable(false);
             btoolBar.setDisable(false);
-            //seralizeBracket(selectedBracket);
+
 
             selectedBracket=new Bracket(startingBracket);
             bracketPane=new BracketPane(selectedBracket);
