@@ -1,4 +1,4 @@
-//package marchmadness;
+package k.marchmadness;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -273,6 +273,7 @@ public class MarchMadnessGUI extends Application {
         scoreBoardButton=new Button("ScoreBoard");
         viewBracketButton= new Button("View Simulated Bracket");
         clearButton=new Button("Clear");
+        randomizeButton = new Button("Random Select");
         //Yuliia: Tooltip added for clear bracket button button
         tooltip = new Tooltip("Clear Bracket");
         clearButton.setTooltip(tooltip);
