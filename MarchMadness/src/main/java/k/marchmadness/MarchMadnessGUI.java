@@ -47,9 +47,12 @@ public class MarchMadnessGUI extends Application {
     private Button logoutButton;
     private Button newBracketButton;
 
-    //New bracket when user clicks the button
+    //EDIT: by Kevin Pinto New bracket when user clicks the button
     private Bracket newBracket;
 
+
+
+    private Tooltip tooltip;
 
     //allows you to navigate back to division selection screen
     private Button back;
@@ -128,6 +131,23 @@ public class MarchMadnessGUI extends Application {
         //cant login and restart prog after simulate
         login.setDisable(true);
         simulate.setDisable(true);
+
+        //Yuliia: Tooltip added for sign button button
+        tooltip = new Tooltip("Click to Login");
+        login.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for simulate button button
+        tooltip = new Tooltip("Click to Simulate");
+        simulate.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for score board button button
+        tooltip = new Tooltip("Move to Score Board");
+        scoreBoardButton.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for view bracket button button
+        tooltip = new Tooltip("Click to See Bracket");
+        viewBracketButton.setTooltip(tooltip);
+
 
         scoreBoardButton.setDisable(false);
         viewBracketButton.setDisable(false);
@@ -362,6 +382,27 @@ public class MarchMadnessGUI extends Application {
         exitGameButton = new Button("Exit Game");
         logoutButton = new Button("Logout");
 
+
+        //Yuliia: Tooltip added for simulate button button
+        tooltip = new Tooltip("Start Simulation");
+        simulate.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for clear bracket button button
+        tooltip = new Tooltip("Clear Bracket");
+        clearButton.setTooltip(tooltip);
+
+        //Yuliaa: Tooltip added for reset  button
+        tooltip = new Tooltip("Reset All Brackets");
+        resetButton.setTooltip(tooltip);
+
+        //Yuliia: Tooltip added for finalize  button
+        tooltip = new Tooltip("Finalise the Bracket");
+        finalizeButton.setTooltip(tooltip);
+        tooltip = new Tooltip("Actions");
+        toolBar.setTooltip(tooltip);
+
+
+
         toolBar.getItems().addAll(
                 createSpacer(),
                 login,
@@ -372,6 +413,10 @@ public class MarchMadnessGUI extends Application {
                 newBracketButton,
                 createSpacer()
         );
+
+        tooltip = new Tooltip("Reset Buttons");
+        btoolBar.setTooltip(tooltip);
+
         btoolBar.getItems().addAll(
                 createSpacer(),
                 clearButton,
@@ -443,13 +488,30 @@ public class MarchMadnessGUI extends Application {
         TextField enterUser = new TextField();
         loginPane.add(enterUser, 1, 1);
 
+
+        //Yuliia: Tooltip added for user name text field
+        tooltip = new Tooltip("Enter username here");
+        enterUser.setTooltip(tooltip);
+
+
         Label password = new Label("Password: ");
         loginPane.add(password, 0, 2);
 
         PasswordField passwordField = new PasswordField();
         loginPane.add(passwordField, 1, 2);
 
+
+        //Yuliia: Tooltip added for password text field
+        tooltip = new Tooltip("Enter password here");
+        passwordField.setTooltip(tooltip);
+
+
         Button signButton = new Button("Sign in");
+
+        tooltip = new Tooltip("Click to Login");
+        signButton.setTooltip(tooltip);
+
+
         loginPane.add(signButton, 1, 4);
         signButton.setDefaultButton(true);//added by matt 5/7, lets you use sign in button by pressing enter
 
@@ -480,18 +542,46 @@ public class MarchMadnessGUI extends Application {
                 }
 
             } else {
-                //check for empty fields
-                if (!name.equals("") && !playerPass.equals("")) {
-                    //create new bracket
-                    Bracket tmpPlayerBracket = new Bracket(startingBracket, name);
-                    playerBrackets.add(tmpPlayerBracket);
-                    tmpPlayerBracket.setPassword(playerPass);
+                //Yuliia: check for empty username and password
+                if(!name.equals("") && !playerPass.equals("")){
+                    /**
+                     Yuliia: Special characters are not allowed in user name
+                     Yuliia: But they are allowed in passwords
+                     Yuliia: Password length must be 8 characters at least
+                     */
+                    boolean special = false;
+                    for (int a = 0; a < name.length(); a++) {
+                        if(Character.isDigit(name.charAt(a)) || Character.isAlphabetic(name.charAt(a))){
+                            //all good if we have alphabets and digits
+                        }
+                        else{
+                            special = true;
+                            break;
+                        }
+                    }
+                    if(special){
+                        infoAlert("Special Characters in Username are not allowed!");
+                    }
+                    else{
+                        if(playerPass.length() < 8){
+                            infoAlert("Password should be at least 8 characters long!");
+                        }
+                        else{
+                            //create new bracket
+                            Bracket tmpPlayerBracket = new Bracket(startingBracket, name);
+                            playerBrackets.add(tmpPlayerBracket);
+                            tmpPlayerBracket.setPassword(playerPass);
 
-                    playerMap.put(name, tmpPlayerBracket);
-                    selectedBracket = tmpPlayerBracket;
-                    //alert user that an account has been created
-                    infoAlert("No user with the Username \"" + name + "\" exists. A new account has been created.");
-                    chooseBracket();
+                            playerMap.put(name, tmpPlayerBracket);
+                            selectedBracket = tmpPlayerBracket;
+                            //alert user that an account has been created
+                            infoAlert("No user with the Username \""  + name + "\" exists. A new account has been created.");
+                            chooseBracket();
+                        }
+                    }
+                }
+                else{
+                    infoAlert("Username & Password cannot be empty!");
                 }
             }
         });
