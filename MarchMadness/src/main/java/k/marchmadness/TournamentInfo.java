@@ -1,6 +1,7 @@
 package k.marchmadness;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import java.util.HashMap;
  * Created by Artem on 5/2/2017.
  */
 public class TournamentInfo{//renamed from teamInfo by matt 5/4
-    HashMap<String, Team> teams;
+    private HashMap<String, Team> teams;
+    private static final String path = "MarchMadness/src/main/resources/k/marchmadness/";
 
     public TournamentInfo() throws IOException{
         teams = new HashMap<>();
@@ -31,10 +33,10 @@ public class TournamentInfo{//renamed from teamInfo by matt 5/4
         int ranking;
         double offensivePPG;
         double defensivePPG;
-
+        
 
         try{
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/k/marchmadness/teamInfo.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(path + "teamInfo.txt"));
 
             while((name = br.readLine()) != null){
             	nickname = br.readLine();
@@ -53,6 +55,10 @@ public class TournamentInfo{//renamed from teamInfo by matt 5/4
             br.close();
 
         }
+        // //Gives me the current dir
+        // catch(FileNotFoundException e) {
+        //     System.out.print(System.getProperty("user.dir"));
+        // }
         catch(IOException ioe) {
             throw ioe;
         }
@@ -117,7 +123,7 @@ public class TournamentInfo{//renamed from teamInfo by matt 5/4
 
 
         try{
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/k/marchmadness/initialMatches.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(path + "initialMatches.txt"));
 
             while((name = br.readLine()) != null){
                 starting.add(name);
