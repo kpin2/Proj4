@@ -79,6 +79,19 @@ public class MarchMadnessGUI extends Application {
     private BracketPane bracketPane;
     private GridPane loginP;
     private TournamentInfo teamInfo;
+
+    /**
+     * Edit 4/1/2022 by Kevin Pinto - adding new buttons to give the user additional options after clicking Simulate
+     */
+    private Button exitGameButton;
+    private Button logoutButton;
+    private Button newBracketButton;
+
+    //EDIT: by Kevin Pinto New bracket when user clicks the button
+    private Bracket newBracket;
+
+    
+    
     
     
     @Override
@@ -88,8 +101,9 @@ public class MarchMadnessGUI extends Application {
             teamInfo=new TournamentInfo();
             startingBracket= new Bracket(TournamentInfo.loadStartingBracket());
             simResultBracket=new Bracket(TournamentInfo.loadStartingBracket());
+            newBracket = new Bracket(TournamentInfo.loadStartingBracket());
         } catch (IOException ex) {
-            showError(new Exception("Can't find "+ex.getMessage(),ex),true);
+            showError(new Exception("Can't find " + ex.getMessage(), ex), true);
         }
         //deserialize stored brackets
         playerBrackets = loadBrackets();
@@ -125,10 +139,12 @@ public class MarchMadnessGUI extends Application {
         launch(args);
     }
     
-    /**
-     * simulates the tournament  
-     * simulation happens only once and
-     * after the simulation no more users can login
+/**
+     * simulates the tournament
+     * simulation happens only once
+     * <p>
+     * Edit by Kevin Pinto to add logout, exit, new bracket button availability
+     * 
      */
     private void simulate(){
         //cant login and restart prog after simulate
@@ -225,25 +241,105 @@ public class MarchMadnessGUI extends Application {
             displayPane(bracketPane);
         }
     }
-    
-    private void finalizeBracket(){
-       if(bracketPane.isComplete()){
-           btoolBar.setDisable(true);
-           bracketPane.setDisable(true);
-           simulate.setDisable(false);
-           login.setDisable(false);
-           //save the bracket along with account info
-           seralizeBracket(selectedBracket);
-            
-       }else{
+
+    /**
+     * Allows the user to return to the login screen.
+     *
+     * @author Kevin Pinto
+     */
+    private void logout() {
+
+        login.setDisable(true);
+        simulate.setDisable(true);
+        scoreBoardButton.setDisable(true);
+        viewBracketButton.setDisable(true);
+        newBracketButton.setDisable(true);
+        btoolBar.setDisable(true);
+        displayPane(loginP);
+        logoutButton.setDisable(true);
+
+    }
+
+/**
+     * Allows user to create a new bracket
+     *
+     * @author Kevin Pinto
+     */
+    private void newBracket() {
+        if (confirmNewBracket()) {
+            selectedBracket = new Bracket(newBracket);
+            bracketPane = new BracketPane(selectedBracket);
+
+
+            toolBar.setDisable(true);
+            btoolBar.setDisable(false);
+//            seralizeBracket(selectedBracket);
+
+            selectedBracket=new Bracket(startingBracket);
+            bracketPane=new BracketPane(selectedBracket);
+            displayPane(bracketPane);
+        }
+    }
+
+ /**
+     * Prompt user for confirmation before creating new bracket
+     *
+     * @author Kevin Pinto
+     */
+    private boolean confirmNewBracket() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "This will create a new BLANK bracket, are you sure?",
+                ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("New Bracket Confirmation");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+        return alert.getResult() == ButtonType.YES;
+    }
+
+    /**
+     * Allow user to exit the game with confirmation dialog
+     *
+     * @author Kevin Pinto
+     */
+    private void exitGame() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you wish to exit the game?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Exit Game?");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            System.exit(0);
+        } else if (alert.getResult() == ButtonType.NO) {
+            alert.close();
+        }
+    }
+
+
+    //    EDIT: by Kevin Pinto change which buttons are disabled
+    private void finalizeBracket() {
+        if (bracketPane.isComplete()) {
+            //btoolBar.setDisable(true);
+            clearButton.setDisable(true);
+            resetButton.setDisable(true);
+            finalizeButton.setDisable(true);
+            back.setDisable(true);
+
+            bracketPane.setDisable(true);
+
+            simulate.setDisable(false);
+            login.setDisable(false);
+            exitGameButton.setDisable(false);
+
+            //save the bracket along with account info
+            seralizeBracket(selectedBracket);
+
+        //addAllToMap();
+
+        } else{
             infoAlert("You can only finalize a bracket once it has been completed.");
             //go back to bracket section selection screen
             // bracketPane=new BracketPane(selectedBracket);
             displayPane(bracketPane);
-        
-       }
-       //bracketPane=new BracketPane(selectedBracket);
-      
+
+        }
     }
     
     
@@ -292,6 +388,10 @@ public class MarchMadnessGUI extends Application {
         //Yuliia: Added info button tool tip
         tooltip = new Tooltip("Instructions");
         infoButton.setTooltip(tooltip);
+        //EDIT: added by Kevin Pinto
+        newBracketButton = new Button("New Bracket");
+        exitGameButton = new Button("Exit Game");
+        logoutButton = new Button("Logout");
         
         //Yuliia: Adding Instractions to upper tool bar
         Text instructions = new Text("Login: to log in to the system\n"
@@ -303,8 +403,10 @@ public class MarchMadnessGUI extends Application {
                 createSpacer(),
                 login,
                 simulate,
+                logoutButton,
                 scoreBoardButton,
                 viewBracketButton,
+                newBracketButton,
                 createSpacer()
         );
         //Yuliia: Adding Instractions to bottom tool bar
@@ -319,6 +421,7 @@ public class MarchMadnessGUI extends Application {
                 resetButton,
                 randomizeButton,
                 finalizeButton,
+                exitGameButton,
                 infoButton,
                 back=new Button("Choose Division"),
                 createSpacer()
@@ -350,6 +453,11 @@ public class MarchMadnessGUI extends Application {
             bracketPane=new BracketPane(selectedBracket);
             displayPane(bracketPane);
         });
+
+        //EDIT: Added by Kevin Pinto
+        logoutButton.setOnAction(e -> logout());
+        newBracketButton.setOnAction(e -> newBracket());
+        exitGameButton.setOnAction(e -> exitGame());
     }
     
     /**
