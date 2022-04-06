@@ -1,4 +1,4 @@
-package k.marchmadness;
+//package k.marchmadness;
 
 import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
@@ -35,6 +35,10 @@ public class BracketPane extends BorderPane {
 
         /**
          * Reference to the graphical representation of the nodes within the bracket.
+         * Christian additional docs:
+         * This only pertains to the divisions around, not the final for, having an index length of 123.
+         * Although it is shorter than the current bracket it is referencing, it still follows the same order.
+         * Any modification to team names and labels has no effect on the actual bracket, only UI representation.
          */
         private static ArrayList<BracketNode> nodes;
         /**
@@ -49,7 +53,8 @@ public class BracketPane extends BorderPane {
          * Reference to the current bracket.
          * Christian additional docs:
          * This holds all the relevant data needed for all the teams populated from
-         *  the current bracket from the Bracket class
+         * the current bracket from the Bracket class. Manipulating this data will
+         * change the current state of the teams in the backend, but won't have any change on the UI.
          */
         private Bracket currentBracket;
         /**
@@ -69,11 +74,12 @@ public class BracketPane extends BorderPane {
         /**
          * Reverse of the above;
          * Christian additional docs: 
+         * this contains the full bracket index length of 126 (zero indexed)
          * Visually this map stores all the teams/nodes in a spiral
          * ex: 
          * 0 Winner
          * 1 EAST vs. WEST Winner
-          * 2 MIDWEST vs. SOUTH Division Winner
+         * 2 MIDWEST vs. SOUTH Division Winner
          * 3 EAST WINNER
          * 4 WEST WINNER
          * 5 MIDWEST WINNER
