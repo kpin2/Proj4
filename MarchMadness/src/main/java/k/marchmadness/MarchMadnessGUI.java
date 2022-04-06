@@ -1,20 +1,37 @@
-package k.marchmadness;//package marchmadness;
 
+//package marchmadness;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  *  MarchMadnessGUI
@@ -37,15 +54,15 @@ public class MarchMadnessGUI extends Application {
     private Button viewBracketButton;
     private Button clearButton;
     private Button resetButton;
-    private Button randomizeButton;
     private Button finalizeButton;
+    private Button randomizeButton;
     private Button infoButton;
     
     //allows you to navigate back to division selection screen
     private Button back;
   
     
-    private  Bracket startingBracket; 
+    private  Bracket startingBracket;
     //reference to currently logged in bracket
     private Bracket selectedBracket;
     private Bracket simResultBracket;
@@ -67,9 +84,9 @@ public class MarchMadnessGUI extends Application {
     public void start(Stage primaryStage) {
         //try to load all the files, if there is an error display it
         try{
-            teamInfo = new TournamentInfo();
-            startingBracket = new Bracket(TournamentInfo.loadStartingBracket());
-            simResultBracket = new Bracket(TournamentInfo.loadStartingBracket());
+            teamInfo=new TournamentInfo();
+            startingBracket= new Bracket(teamInfo.loadStartingBracket());
+            simResultBracket=new Bracket(teamInfo.loadStartingBracket());
         } catch (IOException ex) {
             showError(new Exception("Can't find "+ex.getMessage(),ex),true);
         }
@@ -127,6 +144,11 @@ public class MarchMadnessGUI extends Application {
        teamInfo.simulate(simResultBracket);
        for(Bracket b:playerBrackets){
            scoreBoard.addPlayer(b,b.scoreBracket(simResultBracket));
+
+           //Alland Timas --> returns score associated to user upon pressing submit button
+           if(b.getBracket() == selectedBracket.getBracket()){
+            infoAlert("Your score is: " + scoreBoard.getPlayerScore(selectedBracket));
+           }
        }
         
         displayPane(table);
@@ -175,6 +197,7 @@ public class MarchMadnessGUI extends Application {
         btoolBar.setDisable(false);
         bracketPane=new BracketPane(selectedBracket);
         displayPane(bracketPane);
+
     }
     /**
      * resets current selected sub tree
@@ -187,6 +210,12 @@ public class MarchMadnessGUI extends Application {
       bracketPane=new BracketPane(selectedBracket);
       displayPane(bracketPane);
         
+    }
+    /**
+     * Christian:
+     */
+    private void randomizePicks() {
+        bracketPane.randomize();
     }
     
     /**
@@ -213,9 +242,11 @@ public class MarchMadnessGUI extends Application {
        }else{
             infoAlert("You can only finalize a bracket once it has been completed.");
             //go back to bracket section selection screen
-            // bracketPane=new BracketPane(selectedBracket);
+            // bracketPane=new BracketPane(selectedBracket);   
+
             displayPane(bracketPane);
-        
+            //Alland timas --> added call to bracketPane's check empty nodes method
+            bracketPane.checkEmptyNodes();
        }
        //bracketPane=new BracketPane(selectedBracket);
       
@@ -248,9 +279,7 @@ public class MarchMadnessGUI extends Application {
         viewBracketButton= new Button("View Simulated Bracket");
         clearButton=new Button("Clear");
         resetButton=new Button("Reset");
-        randomizeButton= new Button("Randomize");
         finalizeButton=new Button("Finalize");
-        infoButton = new Button("info");
         toolBar.getItems().addAll(
                 createSpacer(),
                 login,
@@ -282,26 +311,14 @@ public class MarchMadnessGUI extends Application {
         clearButton.setOnAction(e->clear());
         resetButton.setOnAction(e->reset());
         randomizeButton.setOnAction(e->randomizePicks());
-        finalizeButton.setOnAction(e->finalizeBracket());
         infoButton.setOnAction(e->showInfo());
+        finalizeButton.setOnAction(e->finalizeBracket());
         back.setOnAction(e->{
             bracketPane=new BracketPane(selectedBracket);
             displayPane(bracketPane);
         });
     }
-
-    private void showInfo() {
-        Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("hetnahusnetaohtnu");
-			alert.setHeaderText("aoeuaoeu");
-			alert.setContentText("aoeuaoeuaoeuo");
-            alert.show();
-    }
     
-    private void randomizePicks() {
-        bracketPane.randomize();
-    }
-
     /**
      * Creates a spacer for centering buttons in a ToolBar
      */
@@ -312,6 +329,14 @@ public class MarchMadnessGUI extends Application {
                 Priority.SOMETIMES
         );
         return spacer;
+    }
+
+    private void showInfo() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("hetnahusnetaohtnu");
+			alert.setHeaderText("aoeuaoeu");
+			alert.setContentText("aoeuaoeuaoeuo");
+            alert.show();
     }
     
     
@@ -410,8 +435,7 @@ public class MarchMadnessGUI extends Application {
      * The Exception handler
      * Displays a error message to the user
      * and if the error is bad enough closes the program
-     * @param msg message to be displayed to the user
-     * @param fatal true if the program should exit. false otherwise 
+     * @param fatal true if the program should exit. false otherwise
      */
     private void showError(Exception e,boolean fatal){
         String msg=e.getMessage();
@@ -505,8 +529,7 @@ public class MarchMadnessGUI extends Application {
       /**
      * Tayon Watson 5/5
      * deseralizedBracket
-     * @param filename of the seralized bracket file
-     * @return deserialized bracket 
+     * @return deserialized bracket
      */
     private ArrayList<Bracket> loadBrackets()
     {   
