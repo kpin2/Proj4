@@ -45,7 +45,7 @@ import javafx.stage.Stage;
 public class MarchMadnessGUI extends Application {
     
     
-    //all the gui el21  qaements
+    //all the gui ellements
     private BorderPane root;
     private ToolBar toolBar;
     private ToolBar btoolBar;
@@ -56,6 +56,7 @@ public class MarchMadnessGUI extends Application {
     private Button clearButton;
     private Button resetButton;
     private Button finalizeButton;
+    private Button infoButton;
     private Tooltip tooltip;
     
     //allows you to navigate back to division selection screen
@@ -70,8 +71,6 @@ public class MarchMadnessGUI extends Application {
     
     private ArrayList<Bracket> playerBrackets;
     private HashMap<String, Bracket> playerMap;
-
-    
 
     private ScoreBoardTable scoreBoard;
     private TableView table;
@@ -166,7 +165,7 @@ public class MarchMadnessGUI extends Application {
         simulate.setDisable(true);
         scoreBoardButton.setDisable(true);
         viewBracketButton.setDisable(true);
-        btoolBar.setDisable(true);
+        //btoolBar.setDisable(true);
         displayPane(loginP);
     }
     
@@ -243,8 +242,6 @@ public class MarchMadnessGUI extends Application {
        }
        //bracketPane=new BracketPane(selectedBracket);
       
-      
-        
     }
     
     
@@ -278,15 +275,27 @@ public class MarchMadnessGUI extends Application {
         tooltip = new Tooltip("Clear Bracket");
         clearButton.setTooltip(tooltip);
         resetButton=new Button("Reset");
-        //Yuliaa: Tooltip added for reset  button
+        //Yuliia: Tooltip added for reset button button
         tooltip = new Tooltip("Reset All Brackets");
         resetButton.setTooltip(tooltip);
         finalizeButton=new Button("Finalize");
-        //Yuliia: Tooltip added for finalize  button
+        //Yuliia: Info button on the bottom of screen
+        infoButton=new Button("Info");
+        //Yuliia: Tooltip added for finalize button button
         tooltip = new Tooltip("Finalise the Bracket");
         finalizeButton.setTooltip(tooltip);
         tooltip = new Tooltip("Actions");
         toolBar.setTooltip(tooltip);
+        //Yuliia: Added info button tool tip
+        tooltip = new Tooltip("Instructions");
+        infoButton.setTooltip(tooltip);
+        
+        //Yuliia: Adding Instractions to upper tool bar
+        Text instructions = new Text("Login: to log in to the system\n"
+                + "Simulate: To simulate and check the guesses you have made\n"
+                + "ScoreBoard: To display the score board to the user\n"
+                + "View Simulated Bracket: To see the bracket that is completed with correct guesses");
+        
         toolBar.getItems().addAll(
                 createSpacer(),
                 login,
@@ -295,16 +304,22 @@ public class MarchMadnessGUI extends Application {
                 viewBracketButton,
                 createSpacer()
         );
-        tooltip = new Tooltip("Reset Buttons");
-        btoolBar.setTooltip(tooltip);
+        //Yuliia: Adding Instractions to bottom tool bar
+        Text instructions2 = new Text("Clear: To clear all the guess you have entered\n"
+                + "Reset: To reset all the brackets\n"
+                + "Finalize: To finalize the guesses you have entered into the brackets,\n"
+                + "Choose Division: To move to the Home Page where you can select the brackets again");
+        
         btoolBar.getItems().addAll(
                 createSpacer(),
                 clearButton,
                 resetButton,
                 finalizeButton,
+                infoButton,
                 back=new Button("Choose Division"),
                 createSpacer()
         );
+       
     }
     
    /**
@@ -317,6 +332,7 @@ public class MarchMadnessGUI extends Application {
         viewBracketButton.setOnAction(e->viewBracket());
         clearButton.setOnAction(e->clear());
         resetButton.setOnAction(e->reset());
+        infoButton.setOnAction(e->instrutions());
         finalizeButton.setOnAction(e->finalizeBracket());
         back.setOnAction(e->{
             bracketPane=new BracketPane(selectedBracket);
@@ -351,25 +367,32 @@ public class MarchMadnessGUI extends Application {
         loginPane.setVgap(10);
         loginPane.setPadding(new Insets(5, 5, 5, 5));
 
-        //Yuliia: Greetings for the user
+        //Yuliia: Instructions for user
+        Text instructions = new Text("Instructions: Enter your user name and password in the fields below,\n"
+                + "Click 'Login' and you will be logged in to the system.\n"
+                + "If you are a new user, your account will be created as well!");
+        //loginPane.add(instructions, 3, 0);
+        
+        //Yuliia: Greetings for ths user
         Text welcomeMessage = new Text("Welcome to March Madness");
         welcomeMessage.setFont(new Font("SansSerif", 35));
-        loginPane.add(welcomeMessage, 0, 0, 2, 1);
+        loginPane.add(welcomeMessage, 1, 1, 2, 1);
 
         Label userName = new Label("User Name: ");
-        loginPane.add(userName, 0, 1);
+        loginPane.add(userName, 1, 2);
 
         TextField enterUser = new TextField();
-        loginPane.add(enterUser, 1, 1);
+        loginPane.add(enterUser, 2, 2);
         //Yuliia: Tooltip added for user name text field
         tooltip = new Tooltip("Enter username here");
         enterUser.setTooltip(tooltip);
         
         Label password = new Label("Password: ");
-        loginPane.add(password, 0, 2);
+        loginPane.add(password, 1, 3);
 
         PasswordField passwordField = new PasswordField();
-        loginPane.add(passwordField, 1, 2);
+        loginPane.add(passwordField, 2, 3);
+
         //Yuliia: Tooltip added for password text field
         tooltip = new Tooltip("Enter password here");
         passwordField.setTooltip(tooltip);
@@ -377,7 +400,7 @@ public class MarchMadnessGUI extends Application {
         Button signButton = new Button("Sign in");
         tooltip = new Tooltip("Click to Login");
         signButton.setTooltip(tooltip);
-        loginPane.add(signButton, 1, 4);
+        loginPane.add(signButton, 2, 4);
         signButton.setDefaultButton(true);//added by matt 5/7, lets you use sign in button by pressing enter
 
         Label message = new Label();
@@ -411,8 +434,8 @@ public class MarchMadnessGUI extends Application {
             } else {
                 //Yuliia: check for empty username and password
                 if(!name.equals("") && !playerPass.equals("")){
-                    /**
-                        Yuliia: Special characters are not allowed in user name
+                    /*
+                        Yuliia: Sepcial characters are not allowed in useranames
                         Yuliia: But they are allowed in passwords
                         Yuliia: Password length must be 8 characters at least
                     */
@@ -580,6 +603,25 @@ public class MarchMadnessGUI extends Application {
             }
         }
         return list;
+    }
+
+    private void instrutions() {
+        infoAlert("Login Page\n"
+                + "Enter your user name and password in the fields below,\n"
+                + "Click 'Login' and you will be logged in to the system.\n"
+                + "If you are a new user, your account will be created as well!\n\n"
+                
+                + "Top Tollbar\n"
+                + "Login: to log in to the system\n"
+                + "Simulate: To simulate and check the guesses you have made\n"
+                + "ScoreBoard: To display the score board to the user\n"
+                + "View Simulated Bracket: To see the bracket that is completed with correct guesses\n\n"
+                
+                + "Bottom Toolbar\n"
+                + "Clear : To clear all the guess you have entered\n"
+                + "Reset: To reset all the brackets\n"
+                + "Finalize: To finalize the guesses you have entered into the brackets,\n"
+                + "Choose Division: To move to the Home Page where you can select the brackets again");
     }
        
 }
