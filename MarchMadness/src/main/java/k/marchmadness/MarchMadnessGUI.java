@@ -169,8 +169,12 @@ public class MarchMadnessGUI extends Application {
        teamInfo.simulate(simResultBracket);
        for(Bracket b:playerBrackets){
            scoreBoard.addPlayer(b,b.scoreBracket(simResultBracket));
+           //Alland Timas --> returns score associated to user upon pressing submit button
+           if(b.getBracket() == selectedBracket.getBracket()){
+            infoAlert("Your score is: " + scoreBoard.getPlayerScore(selectedBracket));
+           }
        }
-        
+
         displayPane(table);
     }
     
@@ -338,6 +342,8 @@ public class MarchMadnessGUI extends Application {
             //go back to bracket section selection screen
             // bracketPane=new BracketPane(selectedBracket);
             displayPane(bracketPane);
+            // edited by Alland Timas
+            bracketPane.checkEmptyNodes();
 
         }
     }
